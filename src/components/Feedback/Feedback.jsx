@@ -1,22 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Statistics from 'components/Statistics/Statistics';
 
 const Feedback = () => {
 	const [good, setGood] = useState(0);
 	const [neutral, setNeutral] = useState(0);
 	const [bad, setBad] = useState(0);
-	const [total, setTotal] = useState(0);
 
-	const totalVotes = () => {
-		return good + neutral + bad;
-	};
+	const total = good + neutral + bad;
 
 	const positiveVotes = () => {
 		if (good === 0) {
 			return 0;
 		}
-		return ((good / (good + neutral + bad)) * 100).toFixed();
+		return ((good / total) * 100).toFixed();
 	};
+
 	return (
 		<>
 			<h2 className=" bg-lime-500 block mx-auto w-48 py-2 text-center mt-5 rounded-lg text-green-800 font-bold">
@@ -48,13 +46,13 @@ const Feedback = () => {
 			<h2 className=" bg-lime-500 block mx-auto w-48 py-2 text-center mt-10 rounded-lg text-green-800 font-bold">
 				Statistics
 			</h2>
-			{totalVotes() === 0 ? (
-				'No feedback rigth now'
+			{total === 0 ? (
+				'No feedback right now'
 			) : (
 				<Statistics good={good} neutral={neutral} bad={bad} />
 			)}
 			<p className="text-center mt-8 font-bold w-36 h-10 text-center flex items-center justify-center mx-auto rounded-md border-lime-500 border-2">
-				Total: {totalVotes()}{' '}
+				Total: {total}
 			</p>
 			<p className="text-center mt-8 font-bold w-44 h-10 text-center flex items-center justify-center mx-auto rounded-md border-lime-500 border-2">
 				Positive votes: {positiveVotes()}%
